@@ -1,28 +1,32 @@
 package com.example.jaebitly.application
 
 import com.example.jaebitly.domain.ShortKey
+import com.example.jaebitly.domain.event.RedirectEvent
 import org.springframework.stereotype.Component
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter.event
+import java.time.Instant
+import java.time.LocalDateTime
 
 @Component
-class RedirectUseCase (
+class RedirectUseCase(
     private val linkRepository: LinkRepository,
-    private val eventPublisher: RedirectEventPublisher
-){
+    private val eventPublisher: RedirectEventPublisher,
+) {
     fun execute(shortKey: String): RedirectResult {
-         val key = ShortKey(shortKey)
+        val key = ShortKey(shortKey)
 
-        val originalUrl = linkRepository.findByShortKey(shortKey = key)
-            ?: throw ShortLinkNotFoundException()
+        val originalUrl =
+            linkRepository.findByShortKey(shortKey = key)
+                ?: throw ShortLinkNotFoundException()
 
-        //TODO: 추후 구현체 교체
-        eventPublisher.publish(shortKey = key)
+        eventPublisher.publish(event = RedirectEvent(shortKey = key.value, occurredAt = Instant.now()))
 
         return RedirectResult(
-            targetUrl = originalUrl.value
+            targetUrl = originalUrl.value,
         )
     }
 }
 
 data class RedirectResult(
-    val targetUrl: String
+    val targetUrl: String,
 )
