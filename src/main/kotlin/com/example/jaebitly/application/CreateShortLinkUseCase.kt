@@ -5,11 +5,15 @@ import com.example.jaebitly.domain.ShortKey
 import org.springframework.stereotype.Component
 
 @Component
-class CreateShortLinkUseCase {
+class CreateShortLinkUseCase (
+    private val linkRepository: LinkRepository
+){
 
     fun execute(originalUrl: String): CreateShortLinkResult {
         val url = OriginalUrl.from(originalUrl)
         val shortKey = ShortKey.generate()
+
+        linkRepository.save(shortKey = shortKey, originalUrl = url)
 
         return CreateShortLinkResult(
             shortKey = shortKey.value,

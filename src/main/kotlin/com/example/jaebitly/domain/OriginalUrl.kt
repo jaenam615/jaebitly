@@ -3,7 +3,7 @@ package com.example.jaebitly.domain
 import java.net.URI
 
 @JvmInline
-value class OriginalUrl private constructor(val raw: String) {
+value class OriginalUrl private constructor(val value: String) {
     companion object {
         fun from(raw: String): OriginalUrl {
             require(raw.isNotBlank()) { "URL must not be blank" }
@@ -13,7 +13,7 @@ value class OriginalUrl private constructor(val raw: String) {
                 "Only HTTP or HTTPS are allowed"
             }
 
-            return OriginalUrl(raw=raw)
+            return OriginalUrl(value=raw)
         }
     }
 }
