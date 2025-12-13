@@ -19,6 +19,7 @@ class ShortLinkController (
             shortUrl = result.shortUrl
         )
     }
+
 }
 
 data class CreateShortLinkRequest(
