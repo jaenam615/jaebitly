@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class RedirectController(
-    private val redirectUseCase: RedirectUseCase
+    private val redirectUseCase: RedirectUseCase,
 ) {
     @GetMapping("/{shortKey}")
-    fun redirect(@PathVariable("shortKey") shortKey: String): ResponseEntity<Void> {
+    fun redirect(
+        @PathVariable("shortKey") shortKey: String,
+    ): ResponseEntity<Void> {
         val result = redirectUseCase.execute(shortKey)
 
-        return ResponseEntity.status(HttpStatus.FOUND)
+        return ResponseEntity
+            .status(HttpStatus.FOUND)
             .header(HttpHeaders.LOCATION, result.targetUrl)
             .build()
     }
