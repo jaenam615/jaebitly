@@ -4,6 +4,10 @@ import com.example.jaebitly.domain.ShortKey
 import com.example.jaebitly.domain.stat.RedirectStatView
 import org.springframework.stereotype.Component
 
+/**
+ * Internal use case for redirect analytics.
+ * Used only for validating event-driven aggregation.
+ */
 @Component
 class GetLinkAnalyticsUseCase(
     private val redirectStatStore: RedirectStatStore,

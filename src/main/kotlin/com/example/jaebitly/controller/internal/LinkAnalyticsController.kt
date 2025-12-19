@@ -1,4 +1,4 @@
-package com.example.jaebitly.controller
+package com.example.jaebitly.controller.internal
 
 import com.example.jaebitly.application.GetLinkAnalyticsUseCase
 import org.springframework.web.bind.annotation.GetMapping
@@ -10,7 +10,11 @@ import java.time.Instant
 class LinkAnalyticsController(
     private val getLinkAnalyticsUseCase: GetLinkAnalyticsUseCase,
 ) {
-    @GetMapping("/links/{key}/analytics")
+    /**
+     * Internal analytics endpoint.
+     * Not part of public MVP.
+     */
+    @GetMapping("/internal/links/{key}/analytics")
     fun getLinkAnalytics(
         @PathVariable("key") key: String,
     ): LinkAnalyticsResponse {
