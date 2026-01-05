@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 class RedirectController(
     private val redirectUseCase: RedirectUseCase,
 ) {
-    @GetMapping("/{shortKey}")
+    @GetMapping("/r/{shortKey}")
     fun redirect(
         @PathVariable("shortKey") shortKey: String,
         request: HttpServletRequest,
